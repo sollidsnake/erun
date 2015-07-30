@@ -1,8 +1,14 @@
 ;(defcustom erun:external-terminal )
 (defvar erun:terminal "gnome-terminal")
 
+(defvar erun:elisp-function-name nil)
+
 (defvar erun:cpp-error-buffer "erun-cpp-error")
 (defvar erun:c-links ())
+
+(defun erun:run-elisp-function ()
+  (interactive)
+  (funcall erun:elisp-function-name))
 
 (defun erun:get-file-name-without-extension (file-path)
   "Return the file name without extension"
