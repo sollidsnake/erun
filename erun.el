@@ -6,6 +6,8 @@
 (defvar erun:cpp-error-buffer "erun-cpp-error")
 (defvar erun:c-links ())
 
+(defvar erun:python-function 'python-shell-send-buffer)
+
 (defun erun:run-elisp-function ()
   (interactive)
   (funcall erun:elisp-function-name))
@@ -36,8 +38,11 @@
    ((string-equal major-mode "emacs-lisp-mode")
     (eval-buffer))
 
+   ;; ((string-equal major-mode "python-mode")
+    ;; (erun:execute-using-terminal (concat "python " buffer-file-name)))
+
    ((string-equal major-mode "python-mode")
-    (erun:execute-using-terminal (concat "python " buffer-file-name)))
+    (funcall erun:python-function))
 
    ((string-equal major-mode "php-mode")
     (erun:execute-using-terminal (concat "php " buffer-file-name)))
