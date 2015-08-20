@@ -1,5 +1,5 @@
 ;(defcustom erun:external-terminal )
-(defvar erun:terminal "gnome-terminal")
+(defvar erun:terminal "mate-terminal")
 
 (defvar erun:elisp-function-name nil)
 
