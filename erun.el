@@ -1,6 +1,10 @@
 ;(defcustom erun:external-terminal )
 (defvar erun:terminal "mate-terminal")
 
+(defcustom erun:use-external-terminal nil
+  "whether external terminal or not"
+  :type 'boolean)
+
 (defvar erun:elisp-function-name nil)
 
 (defvar erun:cpp-error-buffer "erun-cpp-error")
@@ -27,8 +31,10 @@
   )
 
 (defun erun:execute-using-terminal (cmd)
-  (shell-command-to-string (concat erun:terminal " -e \"bash -c '" cmd "; read;'\""))
-  (message (concat erun:terminal " -e \"bash -c '" cmd "; read;'\""))
+  (shell-command-to-string
+   (concat erun:terminal " -e \"bash -c '" cmd "; read;'\""))
+
+  ;; (message (concat erun:terminal " -e \"bash -c '" cmd "; read;'\""))
   )
 
 (defun erun()                           ; awesomeness!!!
@@ -42,7 +48,9 @@
     ;; (erun:execute-using-terminal (concat "python " buffer-file-name)))
 
    ((string-equal major-mode "python-mode")
-    (funcall erun:python-function))
+    (if erun:use-external-terminal
+        (erun:execute-using-terminal (concat "python " buffer-file-name))
+      (funcall erun:python-function)))
 
    ((string-equal major-mode "php-mode")
     (erun:execute-using-terminal (concat "php " buffer-file-name)))
