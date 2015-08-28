@@ -6,6 +6,7 @@
   :type 'boolean)
 
 (defvar erun:elisp-function-name nil)
+(defvar erun:auto-save nil)
 
 (defvar erun:cpp-error-buffer "erun-cpp-error")
 (defvar erun:c-links ())
@@ -40,6 +41,10 @@
 (defun erun()                           ; awesomeness!!!
   "Check out the current major mode and run/eval the code!"
   (interactive)
+
+  (when erun:auto-save
+    (save-buffer))
+
   (cond
    ((string-equal major-mode "emacs-lisp-mode")
     (eval-buffer))
