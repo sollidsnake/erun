@@ -66,7 +66,8 @@
    ((string-equal major-mode "java-mode")
     (eclim-run-class))
 
-   ((string-equal major-mode "c++-mode")
+   ;; use symbol-name to convert `major-mode' to string
+   ((member (symbol-name major-mode) '("c++-mode" "c-mode"))
     (progn
       (save-buffer)
       (setq-local file-name (erun:get-file-name-without-extension(buffer-file-name)))
